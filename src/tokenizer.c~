@@ -1,0 +1,62 @@
+#include <stdio.h>
+#include "tokenizer.h"
+
+int space_char(char c){
+  if (c == ' ' || c == '\t') {
+    return 1;
+  }
+  else {
+    return 0;
+  }
+}
+
+int non_space_char(char c){
+  if ((c != ' ' || c != '\t') && c != 0) {
+    return 1;
+  }
+  else {
+    return 0;
+  }
+}
+
+char *token_start(char *str){
+  char *i = str;
+  while(space_char(*i)){
+    i ++;
+  }
+  return i;
+}
+
+char *token_terminator(char *str){
+  char *i = str;
+  while(non_space_char(*i)){
+    i ++;
+  }
+  return i;
+}
+
+int count_tokens(char *str){
+  int count = 0;
+  char *i = str;
+  while(*i != '\0'){
+    i = token_start(i);
+    printf(i);
+    i = token_terminator(i);
+    printf(i);
+    count ++;
+    
+  }
+  return count;
+}
+
+int main(){
+  char str[100];
+
+  printf("Enter string: ");
+  fgets(str, sizeof(str), stdin);
+
+  printf("You entered: %s\n", str);
+  char *string = str;
+  printf(&str);
+  printf("Number of tokens: %d\n", count_tokens(string));
+}
